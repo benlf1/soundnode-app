@@ -89,6 +89,25 @@ app.service('SC2apiService', function (
             .catch(onResponseError);
     };
 
+    /**
+     * Get direct song URL from Id
+     * @param  {string} id - track id
+     * @return {promise}
+     */
+    this.getUrlById = function (id) {
+        var _ = undefined
+        var param = '?client_id=' + window.localStorage.scClientId;
+        return sendRequest('tracks/' + id + param, _, _, false)
+            .then(function(response) {
+                return sendRequest(response['data']['media']['transcodings'][1]['url'], _, _, false + param)
+                .then(response => {
+                    return response['data']['url'];
+                })
+                .catch(onResponseError);
+            })
+            .catch(onResponseError);
+    };
+
     // Private methods
 
     /**
@@ -96,9 +115,10 @@ app.service('SC2apiService', function (
      * @param  {resource} resource - url part with resource name
      * @param  {object} config   - options for $http
      * @param  {object} options  - custom options (show loading, etc)
+     * @param  {boolean} auth  - boolean to append oauth_token to request
      * @return {promise}
      */
-    function sendRequest(resource, config, options) {
+    function sendRequest(resource, config, options, auth=true) {
         config = config || {};
         // Check if passed absolute url
         if (resource.indexOf('http') === 0) {
@@ -107,8 +127,9 @@ app.service('SC2apiService', function (
             config.url = SOUNDCLOUD_API_V2 + resource;
         }
         config.params = config.params || {};
-        config.params.oauth_token = $window.scAccessToken;
-
+        if (auth) {
+            config.params.oauth_token = $window.scAccessToken;
+        }
         options = options || {};
         if (options.loading !== false) {
             $rootScope.isLoading = true;
@@ -150,5 +171,7 @@ app.service('SC2apiService', function (
         nextPageUrl = data.next_href || '';
         return data;
     }
+
+
 
 });

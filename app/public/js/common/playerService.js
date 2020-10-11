@@ -37,6 +37,7 @@ app.factory('playerService', function (
   $state,
   mprisService,
   notificationFactory,
+  SC2apiService,
   queueService,
   utilsService,
   modalFactory,
@@ -138,7 +139,6 @@ app.factory('playerService', function (
    * @method playNewSong
    */
   player.playNewSong = function () {
-    var trackUrl;
     var that = this;
     var trackObj = queueService.getTrack();
     var trackObjId = trackObj.songId;
@@ -151,10 +151,8 @@ app.factory('playerService', function (
       trackObj.songThumbnail = 'public/img/song-placeholder.png';
     }
 
-    trackUrl = trackObj.songUrl + '?client_id=' + window.localStorage.scClientId;
-
-    // check rate limit
-    utilsService.isPlayable(trackUrl).then(function () {
+    // get direct link
+    SC2apiService.getUrlById(trackObjId).then(function (trackUrl) {
       that.elPlayer.setAttribute('src', trackUrl);
       that.elThumb.setAttribute('src', trackObj.songThumbnail);
       that.elThumb.setAttribute('alt', trackObj.songTitle);
