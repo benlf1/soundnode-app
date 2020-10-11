@@ -14,7 +14,8 @@ app.directive('openExternal', function () {
                 } else {
                     el = attrs.href + '?client_id=' + window.localStorage.scClientId;
                 }
-                gui.Shell.openExternal( el );
+                var shell = require('electron').shell;
+                shell.openExternal(el)
             });
 
         }

@@ -99,8 +99,8 @@ app.service('SC2apiService', function (
         var param = '?client_id=' + window.localStorage.scClientId;
         return sendRequest('tracks/' + id + param, _, _, false)
             .then(function(response) {
-                return sendRequest(response['data']['media']['transcodings'][1]['url'], _, _, false + param)
-                .then(response => {
+                return sendRequest(response['data']['media']['transcodings'][1]['url'] + param, _, _, false)
+                .then(function(response) {
                     return response['data']['url'];
                 })
                 .catch(onResponseError);
