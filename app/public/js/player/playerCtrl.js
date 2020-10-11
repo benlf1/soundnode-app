@@ -264,7 +264,7 @@ app.controller('PlayerCtrl', function (
     description: 'Volume Up',
     callback: function (e) {
       e.preventDefault();
-      playerService.volume(playerService.volume() + 0.1);
+      playerService.volume(playerService.volume() + 0.05);
       $scope.volume = playerService.volume();
     }
   });
@@ -274,7 +274,7 @@ app.controller('PlayerCtrl', function (
     description: 'Volume Down',
     callback: function (e) {
       e.preventDefault();
-      playerService.volume(playerService.volume() - 0.1);
+      playerService.volume(playerService.volume() - 0.05);
       $scope.volume = playerService.volume();
     }
   });
