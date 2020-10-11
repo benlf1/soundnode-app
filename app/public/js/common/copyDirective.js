@@ -1,5 +1,7 @@
 'use strict';
 
+const { clipboard } = require('electron')
+
 app.directive('copyDirective', function (
     notificationFactory
 ) {
@@ -10,8 +12,7 @@ app.directive('copyDirective', function (
 
             elem.bind('click', function () {
                 var info = elem.attr('data-copy');
-                var clipboard = gui.Clipboard.get();
-                clipboard.set(info, 'text');
+                clipboard.writeText(info);
                 notificationFactory.success("Song url copied to clipboard!");
             });
         }
