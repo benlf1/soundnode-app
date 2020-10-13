@@ -9,7 +9,7 @@
   },
   "scripts": {
     "prestart": "npm run watch",
-    "start": "./node_modules/.bin/electron .",
+    "start": "./node_modules/.bin/electron.exe .",
     "release": "npm run clean && npm run webpack:prod && npm run sass:prod && npm run package:all",
     "watch": "npm run webpack:dev & npm run sass:dev",
     "clean": "./node_modules/.bin/rimraf ./dist",
@@ -31,14 +31,14 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.23.0",
-    "electron": "^8.0.1",
+    "electron": "^8.5.2",
     "electron-packager": "^14.2.1",
     "eslint": "^4.0.0",
     "eslint-plugin-react": "^7.1.0",
     "install": "^0.10.1",
-    "node-sass": "^4.5.0",
+    "node-sass": "^4.14.1",
     "rimraf": "^2.5.4",
-    "webpack": "^3.3.0"
+    "webpack": "^3.12.0"
   },
   "dependencies": {
     "angular": "^1.6.2",
