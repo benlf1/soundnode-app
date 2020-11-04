@@ -15,8 +15,6 @@ const configuration = require('./app/public/js/common/configLocation');
 const clientId = '342b8a7af638944906dcdb46f9d56d98';
 const redirectUri = 'http://sc-redirect.herokuapp.com/callback.html';
 const SCconnect = `https://soundcloud.com/connect?&client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
-const loginURL = "https://soundcloud.com/signin";
-const soundCloudURL = "https://soundcloud.com/"
 
 let mainWindow;
 let authenticationWindow;
@@ -51,16 +49,6 @@ function authenticateUser() {
       webSecurity: false
     }
   });
-
-  // authenticationWindow.loadURL(loginURL);
-  // authenticationWindow.show();
-
-  // contents = authenticationWindow.webContents;
-
-  // contents.on('did-navigate', (_event, url, httpResponseCode) => {
-  //   console.log("what happened");
-    // authenticationWindow.destroy();
-
   authenticationWindow.loadURL(SCconnect);
   authenticationWindow.show();
 
@@ -115,9 +103,9 @@ function initMainWindow() {
 
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 
-  // if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
-  // }
+  }
 
   mainWindow.webContents.on('will-navigate', function (e, url) {
     if (url.indexOf('build/index.html#') < 0) {
